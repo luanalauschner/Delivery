@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ restaurante.nome }}</title>
+</head>
+<body>
+  <h1>{{ restaurante.nome }}</h1>
+
+  <h2>Cardápio</h2>
+  <ul>
+    {% for i in itens %}
+      <li>
+        <b>{{ i.nome }}</b> - R$ {{ '%.2f'|format(i.preco_base) }}<br>
+        {{ i.descricao or '' }}
+	<form method="post" action="/carrinho/add" style="margin-top:6px;">
+        <input type="hidden" name="item_id" value="{{ i.id }}">
+        <input type="hidden" name="restaurante_id" value="{{ restaurante.usuario_id }}">
+        <button type="submit">Adicionar</button>
+      </form>
+      </li>
+      <br>
+    {% endfor %}
+  </ul>
+
+  <a href="/carrinho">Ver carrinho</a> | <a href="/">Voltar</a>
+</body>
+</html>

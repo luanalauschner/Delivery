@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Checkout</title>
+</head>
+<body>
+  <h1>Checkout</h1>
+
+  {% if not enderecos %}
+    <p>Você ainda não tem endereço cadastrado.</p>
+    <p><a href="/enderecos">Cadastrar endereço</a></p>
+    <p><a href="/carrinho">Voltar ao carrinho</a></p>
+  {% else %}
+    <form method="post" action="/checkout">
+      <label>Endereço:</label>
+      <select name="endereco_id" required>
+        {% for e in enderecos %}
+          <option value="{{ e.id }}">
+            {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} ({{ e.cep }})
+          </option>
+        {% endfor %}
+      </select>
+
+      <br><br>
+
+      <label>Pagamento:</label>
+      <select name="metodo" required>
+        <option value="PIX">PIX</option>
+        <option value="CARTAO">Cartão</option>
+      </select>
+
+      <br><br>
+
+      <button type="submit">Confirmar e pagar</button>
+    </form>
+
+    <p><a href="/carrinho">Voltar</a></p>
+  {% endif %}
+</body>
+</html>

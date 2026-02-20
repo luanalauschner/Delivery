@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% if acao=='novo' %}Novo Item{% else %}Editar Item{% endif %}</title>
+</head>
+<body>
+  <h1>{% if acao=='novo' %}Novo Item{% else %}Editar Item{% endif %}</h1>
+
+  <p>
+    <a href="/restaurante/cardapio">Voltar ao cardápio</a> |
+    <a href="/restaurante">Painel</a>
+  </p>
+
+  {% if acao == 'novo' %}
+    <form method="post" action="/restaurante/cardapio/novo">
+  {% else %}
+    <form method="post" action="/restaurante/cardapio/{{ item.id }}/editar">
+  {% endif %}
+
+    <label>Nome*:</label><br>
+    <input name="nome" required value="{{ item.nome if item else '' }}">
+    <br><br>
+
+    <label>Descrição:</label><br>
+    <textarea name="descricao" rows="4" cols="50">{{ item.descricao if item and item.descricao else '' }}</textarea>
+    <br><br>
+
+    <label>Preço*:</label><br>
+    <input name="preco_base" required value="{{ item.preco_base if item else '' }}">
+    <br><br>
+
+    <label>
+      <input type="checkbox" name="disponivel" {% if item is none or item.disponivel %}checked{% endif %}>
+      Disponível
+    </label>
+
+    <br><br>
+    <button type="submit">Salvar</button>
+  </form>
+</body>
+</html>

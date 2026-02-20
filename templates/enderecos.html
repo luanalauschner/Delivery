@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Meus Endereços</title>
+</head>
+<body>
+  <h1>Meus Endereços</h1>
+
+  <h2>Cadastrar novo</h2>
+  <form method="post" action="/enderecos">
+    <label>Rua*:</label>
+    <input name="rua" required>
+    <br><br>
+
+    <label>Número*:</label>
+    <input name="numero" required>
+    <br><br>
+
+    <label>Bairro:</label>
+    <input name="bairro">
+    <br><br>
+
+    <label>Cidade:</label>
+    <input name="cidade">
+    <br><br>
+
+    <label>Estado (UF):</label>
+    <input name="estado" maxlength="2" placeholder="AM">
+    <br><br>
+
+    <label>CEP*:</label>
+    <input name="cep" required>
+    <br><br>
+
+    <label>Complemento:</label>
+    <input name="complemento">
+    <br><br>
+
+    <button type="submit">Salvar endereço</button>
+  </form>
+
+  <hr>
+
+  <h2>Endereços cadastrados</h2>
+
+  {% if not enderecos %}
+    <p>Você ainda não cadastrou nenhum endereço.</p>
+  {% else %}
+    <ul>
+      {% for e in enderecos %}
+        <li>
+          {{ e.rua }}, {{ e.numero }}
+          {% if e.bairro %} - {{ e.bairro }}{% endif %}
+          {% if e.cidade %} - {{ e.cidade }}{% endif %}
+          {% if e.estado %}/{{ e.estado }}{% endif %}
+          - CEP {{ e.cep }}
+          {% if e.complemento %} ({{ e.complemento }}){% endif %}
+
+          <form method="post" action="/enderecos/{{ e.id }}/delete" style="display:inline;">
+            <button type="submit">Excluir</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p>
+    <a href="/">Home</a> |
+    <a href="/carrinho">Carrinho</a>
+  </p>
+</body>
+</html>

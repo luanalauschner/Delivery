@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Carrinho</title>
+</head>
+<body>
+  <h1>Carrinho</h1>
+
+  {% if not restaurante_id %}
+    <p>Seu carrinho está vazio.</p>
+    <a href="/">Voltar</a>
+  {% else %}
+    <ul>
+      {% for i in itens %}
+        <li>
+  	    {{ i.nome }} — R$ {{ '%.2f'|format(i.preco) }}
+  	    x {{ i.qtd }}
+  	    = <b>R$ {{ '%.2f'|format(i.linha_total) }}</b>
+
+  	<form method="post" action="/carrinho/decrease" style="display:inline;">
+    	    <input type="hidden" name="item_id" value="{{ i.id }}">
+    	    <button type="submit">-</button>
+  	</form>
+
+  	<form method="post" action="/carrinho/add" style="display:inline;">
+    	    <input type="hidden" name="item_id" value="{{ i.id }}">
+    	    <input type="hidden" name="restaurante_id" value="{{ restaurante_id }}">
+    	    <button type="submit">+</button>
+  	</form>
+
+  	<form method="post" action="/carrinho/remove" style="display:inline;">
+    	    <input type="hidden" name="item_id" value="{{ i.id }}">
+    	    <button type="submit">Remover</button>
+  	</form>
+	</li>
+
+      {% endfor %}
+    </ul>
+
+    <p><b>Subtotal:</b> R$ {{ '%.2f'|format(subtotal) }}</p>
+
+<p>
+  <a href="/restaurantes/{{ restaurante_id }}">Continuar comprando</a> |
+  <a href="/checkout">Finalizar pedido</a>
+</p>
+
+  {% endif %}
+</body>
+</html>

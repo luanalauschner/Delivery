@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Meus pedidos</title>
+</head>
+<body>
+  <h1>Meus pedidos</h1>
+
+  <p>
+    <a href="/">Voltar</a> |
+    <a href="/carrinho">Carrinho</a> |
+    <a href="/logout">Sair</a>
+  </p>
+
+  {% if not pedidos %}
+    <p>Você ainda não fez pedidos.</p>
+  {% else %}
+    <table border="1" cellpadding="6" cellspacing="0">
+      <tr>
+        <th>ID</th>
+        <th>Restaurante</th>
+        <th>Realizado em</th>
+        <th>Status</th>
+        <th>Entregue em</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+
+      {% for p in pedidos %}
+        <tr>
+          <td>#{{ p.id }}</td>
+          <td>{{ p.restaurante_nome }}</td>
+          <td>{{ p.realizado_em }}</td>
+          <td><b>{{ p.status_pedido }}</b></td>
+
+          <td>
+            {% if p.status_pedido == 'ENTREGUE' and p.entregue_em %}
+              {{ p.entregue_em }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+
+          <td>R$ {{ '%.2f'|format(p.total|float) }}</td>
+          <td><a href="/meus-pedidos/{{ p.id }}">Ver detalhes</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</body>
+</html>

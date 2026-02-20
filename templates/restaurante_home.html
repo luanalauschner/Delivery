@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Painel do Restaurante</title>
+</head>
+<body>
+  <h1>Painel do Restaurante</h1>
+
+  <p><b>{{ restaurante.nome }}</b> (status: {{ restaurante.status }})</p>
+
+  <ul>
+    <li><a href="/restaurante/pedidos">Ver pedidos</a></li>
+    <li><a href="/restaurante/cardapio">Gerenciar cardápio</a></li>
+    <!-- Próximo passo: gerenciar cardápio -->
+    <!-- <li><a href="/restaurante/cardapio">Gerenciar cardápio</a></li> -->
+  </ul>
+
+  <p><a href="/">Home</a> | <a href="/logout">Sair</a></p>
+</body>
+</html>

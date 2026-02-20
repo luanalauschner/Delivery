@@ -1,0 +1,40 @@
+<p>
+  <a href="/login">Login</a> |
+  <a href="/cadastro">Cadastro</a> |
+  <a href="/logout">Sair</a> |
+  <a href="/cadastro">Cadastrar</a>
+</p>
+{% if user and user.tipo == 'CLIENTE' %}
+<p><a href="/meus-pedidos">Meus pedidos</a></p>
+{% endif %}
+
+{% if user and user.tipo == 'CLIENTE' %}
+<p><a href="/enderecos">Meus endereços</a></p>
+{% endif %}
+
+{% if user and user.tipo == 'RESTAURANTE' %}
+<p><a href="/restaurante">Painel do restaurante</a></p>
+{% endif %}
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Restaurantes</title>
+</head>
+
+<body>
+  <h1>Restaurantes abertos</h1>
+
+  <ul>
+    {% for r in restaurantes %}
+    <li>
+      <a href="/restaurantes/{{ r.usuario_id }}">{{ r.nome }}</a>
+      ({{ r.tempo_preparo_min }}-{{ r.tempo_preparo_max }} min)
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>

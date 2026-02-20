@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Painel de Pedidos</title>
+</head>
+<body>
+  <h1>Painel de Pedidos</h1>
+
+  <p>
+    <a href="/restaurante">Painel</a> |
+    <a href="/restaurante/cardapio">Cardápio</a> |
+    <a href="/logout">Sair</a>
+  </p>
+
+  {% if not pedidos %}
+    <p>Você ainda não recebeu pedidos.</p>
+  {% else %}
+    <table border="1" cellpadding="6" cellspacing="0">
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Realizado em</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+
+      {% for p in pedidos %}
+        <tr>
+          <td>#{{ p.id }}</td>
+          <td>{{ p.cliente_nome }}</td>
+          <td>{{ p.realizado_em }}</td>
+          <td><b>{{ p.status_pedido }}</b></td>
+          <td>R$ {{ '%.2f'|format(p.total|float) }}</td>
+          <td>
+            <a href="/restaurante/pedidos/{{ p.id }}">Ver detalhes</a>
+
+            <form method="post" action="/restaurante/pedidos/{{ p.id }}/entregar" style="display:inline;">
+              <button type="submit"
+                {% if p.status_pedido == 'ENTREGUE' or p.status_pedido == 'CANCELADO' %}disabled{% endif %}>
+                Marcar entregue
+              </button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</body>
+</html>
