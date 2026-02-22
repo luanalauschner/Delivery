@@ -9,7 +9,7 @@
 - Finalização de pedidos
 - Gestão de pedidos pelo restaurante
   
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - Python 3
 - Flask
