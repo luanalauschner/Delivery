@@ -514,7 +514,7 @@ def enderecos_criar():
         return "Erro: estado deve ter 2 letras (ex: AM).", 400
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("""
@@ -545,7 +545,7 @@ def enderecos_deletar(eid):
     cliente_id = session["usuario_id"]
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("DELETE FROM enderecos WHERE id=%s AND cliente_id=%s", (eid, cliente_id))
@@ -736,7 +736,7 @@ def restaurante_marcar_entregue(pid):
     rid = session["usuario_id"]
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("""
@@ -827,7 +827,7 @@ def restaurante_cardapio_criar():
         return "Erro: preço inválido.", 400
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("""
@@ -898,7 +898,7 @@ def restaurante_cardapio_atualizar(item_id):
         return "Erro: preço inválido.", 400
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("""
@@ -939,7 +939,7 @@ def restaurante_cardapio_desativar(item_id):
     rid = session["usuario_id"]
 
     db = get_db()
-    cur = db.cursor()
+    cur = db.cursor(dictionary=True)
 
     try:
         cur.execute("""
@@ -969,4 +969,4 @@ def restaurante_cardapio_desativar(item_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
