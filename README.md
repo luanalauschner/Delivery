@@ -72,18 +72,21 @@ MYSQL_PORT=3306
 FLASK_SECRET_KEY=dev-secret
 ```
 ## Criar o Banco de Dados  
-### Abra o MySQL Workbench ou terminal MySQL e execute
 
 ```
-CREATE DATABASE sistema_delivery_db;
-USE sistema_delivery_db;
+mysql -u root -p -e "DROP DATABASE IF EXISTS sistema_delivery_db; CREATE DATABASE sistema_delivery_db;"
 ```
 
 ### Carregue as tabelas e os dados inciais
-
+#### Windows (PowerShell)
 ```
-SOURCE schema.sql;
-SOURCE seed.sql;
+Get-Content .\schema.sql | mysql -u root -p sistema_delivery_db
+Get-Content .\seed.sql   | mysql -u root -p sistema_delivery_db
+```
+#### Mac/Linux (ou Windows CMD)
+```
+mysql -u root -p sistema_delivery_db < schema.sql
+mysql -u root -p sistema_delivery_db < seed.sql
 ```
 
 ## Rodar o servidor 
