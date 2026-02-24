@@ -150,5 +150,6 @@ Delivery/
 ├── seed.sql              # Dados iniciais
 ├── requirements.txt      # Dependências
 ├── .env.example          # Modelo de configuração
+├── MER_DER               # MER e DER do projeto
 └── templates/            # Páginas HTML
 ```
