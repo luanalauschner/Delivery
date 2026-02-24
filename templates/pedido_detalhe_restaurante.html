@@ -12,7 +12,25 @@
   </p>
 
   <p><b>Cliente:</b> {{ pedido.cliente_nome }}</p>
-  <p><b>Realizado em:</b> {{ pedido.realizado_em }}</p>
+
+  <p>
+    <b>Realizado em:</b>
+    {% if pedido.realizado_em %}
+      {{ pedido.realizado_em.strftime("%d/%m/%Y %H:%M") }}
+    {% else %}
+      -
+    {% endif %}
+  </p>
+
+  <p>
+    <b>Entregue em:</b>
+    {% if pedido.entregue_em %}
+      {{ pedido.entregue_em.strftime("%d/%m/%Y %H:%M") }}
+    {% else %}
+      -
+    {% endif %}
+  </p>
+
   <p><b>Status:</b> {{ pedido.status_pedido }}</p>
   <p><b>Total:</b> R$ {{ '%.2f'|format(pedido.total|float) }}</p>
 
@@ -20,7 +38,7 @@
   <ul>
     {% for i in itens %}
       <li>
-        {{ i.nome }} — {{ i.quantidade }}x  
+        {{ i.nome }} — {{ i.quantidade }}x
         = R$ {{ '%.2f'|format(i.total_linha|float) }}
       </li>
     {% endfor %}

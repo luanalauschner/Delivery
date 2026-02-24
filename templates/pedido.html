@@ -5,19 +5,50 @@
   <title>Pedido #{{ pedido.id }}</title>
 </head>
 <body>
+
   <h1>Pedido #{{ pedido.id }}</h1>
+
   <p><b>Restaurante:</b> {{ pedido.restaurante_nome }}</p>
+
   <p><b>Status:</b> {{ pedido.status_pedido }}</p>
+
+  <p>
+    <b>Realizado em:</b>
+    {% if pedido.realizado_em %}
+      {{ pedido.realizado_em.strftime("%d/%m/%Y %H:%M") }}
+    {% else %}
+      -
+    {% endif %}
+  </p>
+
+  <p>
+    <b>Entregue em:</b>
+    {% if pedido.entregue_em %}
+      {{ pedido.entregue_em.strftime("%d/%m/%Y %H:%M") }}
+    {% else %}
+      -
+    {% endif %}
+  </p>
+
   <p><b>Total:</b> R$ {{ '%.2f'|format(pedido.total) }}</p>
-  <p><b>Pagamento:</b> {{ pedido.metodo_pagamento }} - {{ pedido.status_pagamento }}</p>
+
+  <p>
+    <b>Pagamento:</b>
+    {{ pedido.metodo_pagamento }} - {{ pedido.status_pagamento }}
+  </p>
 
   <h2>Itens</h2>
   <ul>
     {% for i in itens %}
-      <li>{{ i.nome }} x{{ i.quantidade }} = R$ {{ '%.2f'|format(i.total_linha) }}</li>
+      <li>
+        {{ i.nome }} x{{ i.quantidade }}
+        = R$ {{ '%.2f'|format(i.total_linha) }}
+      </li>
     {% endfor %}
   </ul>
 
+  <br>
   <a href="/">Voltar</a>
+
 </body>
 </html>

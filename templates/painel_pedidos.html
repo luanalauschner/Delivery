@@ -22,6 +22,7 @@
         <th>Cliente</th>
         <th>Realizado em</th>
         <th>Status</th>
+        <th>Entregue em</th>
         <th>Total</th>
         <th>Ações</th>
       </tr>
@@ -30,8 +31,9 @@
         <tr>
           <td>#{{ p.id }}</td>
           <td>{{ p.cliente_nome }}</td>
-          <td>{{ p.realizado_em }}</td>
+          <td>{{ p.realizado_em.strftime("%d/%m/%Y %H:%M") }}</td>
           <td><b>{{ p.status_pedido }}</b></td>
+          <td>{{ p.entregue_em.strftime("%d/%m/%Y %H:%M") if p.entregue_em else "-" }}</td>
           <td>R$ {{ '%.2f'|format(p.total|float) }}</td>
           <td>
             <a href="/restaurante/pedidos/{{ p.id }}">Ver detalhes</a>

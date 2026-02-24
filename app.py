@@ -298,7 +298,7 @@ def finalizar_checkout():
             cur.execute("""
                 INSERT INTO itens_pedido (
                   pedido_id, item_cardapio_id, quantidade,
-                  preco_unitario_snapshot, total_linha
+                  preco_unitario, total_linha
                 )
                 VALUES (%s,%s,%s,%s,%s)
             """, (pedido_id, item_id, qtd, preco_unit, total_linha))
@@ -675,7 +675,7 @@ def restaurante_pedidos():
     cur = db.cursor(dictionary=True)
 
     cur.execute("""
-        SELECT p.id, p.realizado_em, p.status_pedido, p.total, c.nome AS cliente_nome
+        SELECT p.id, p.realizado_em, p.status_pedido, p.total, p.entregue_em, c.nome AS cliente_nome
         FROM pedidos p
         JOIN clientes c ON c.usuario_id = p.cliente_id
         WHERE p.restaurante_id=%s
@@ -701,7 +701,7 @@ def restaurante_pedido_detalhe(pid):
     cur = db.cursor(dictionary=True)
 
     cur.execute("""
-        SELECT p.id, p.realizado_em, p.status_pedido, p.total, c.nome AS cliente_nome
+        SELECT p.id, p.realizado_em, p.status_pedido, p.total, p.entregue_em, c.nome AS cliente_nome
         FROM pedidos p
         JOIN clientes c ON c.usuario_id = p.cliente_id
         WHERE p.id=%s AND p.restaurante_id=%s
